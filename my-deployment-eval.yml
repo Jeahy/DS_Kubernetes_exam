@@ -1,21 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-sentiment-analysis-deployment
+  name: my-database-api-deployment
   labels:
-    app: my-sentiment-analysis-api
+    app: my-fast-api
+    app: my-mysql-database
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-sentiment-analysis-api
+      app: my-fast-api
+      app: my-mysql-database
   template:
     metadata:
       labels:
-        app: my-sentiment-analysis-api
+        app: my-fast-api
+        app: my-mysql-database
     spec:
       containers:
-      - name: my-sentiment-analysis-api
-        image: datascientest/fake-api:1.0.0
+      - name: my-fast-api
+        image: my-fast-api #or main.py??
         ports:
-        - containerPort: 8000
+        - containerPort: 8000 #??
+      - name: my-mysql-database
+        image: datascientest/mysql-k8s:1.0.0
+        ports:
+        - containerPort: 8000 #??
+          
