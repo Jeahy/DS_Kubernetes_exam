@@ -2,28 +2,30 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-database-api-deployment
-  labels:
-    app: my-fast-api
-    app: my-mysql-database
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
-      app: my-fast-api
-      app: my-mysql-database
+      app: my-database-api
   template:
     metadata:
       labels:
-        app: my-fast-api
-        app: my-mysql-database
+        app: my-database-api
     spec:
       containers:
-      - name: my-fast-api
-        image: my-fast-api #or main.py??
+      - name: my-api-container
+        image: jeahy/my-database-api:latest  # Replace with your DockerHub username
         ports:
-        - containerPort: 8000 #??
-      - name: my-mysql-database
+        - containerPort: 8050 #??
+      - name: my-database-container
         image: datascientest/mysql-k8s:1.0.0
         ports:
-        - containerPort: 8000 #??
-          
+        - containerPort: 3306  # Default MySQL port
+      env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-database-secret
+              key: DB_PASSWORD          
