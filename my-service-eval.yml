@@ -3,17 +3,18 @@ kind: Service
 metadata:
   name: my-database-api-service
   labels:
-    app: my-fast-api
-    app: my-mysql-database
+    app: my-database-api
 spec:
   type: ClusterIP
   ports:
-  - protocol: TCP
-    port: 8001 #???
-    targetPort: 8000 #???
-  - protocol: TCP
-    port: 8001 #???
-    targetPort: 8000 #???
+  - name: api-http
+    protocol: TCP
+    port: 8001
+    targetPort: 8050
+  - name: database
+    protocol: TCP
+    port: 8002
+    targetPort: 3306 
   selector:
-    app: my-fast-api
-    app: my-mysql-database
+    app: my-database-api
+

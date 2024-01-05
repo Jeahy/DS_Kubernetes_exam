@@ -8,7 +8,7 @@ server = FastAPI(title='User API')
 
 # creating a connection to the database
 mysql_url = 'mysql'# to complete
-mysql_user = 'root
+mysql_user = 'root'
 mysql_password = os.environ.get('DB_PASSWORD', '') # to complete
 database_name = 'Main'
 
@@ -28,7 +28,7 @@ mysql_engine = create_engine(connection_url)
 # creating a User class
 class User(BaseModel):
     user_id: int = 0
-    username: str = 'daniel
+    username: str = 'daniel'
     email: str = 'daniel@datascientest.com'
 
 
