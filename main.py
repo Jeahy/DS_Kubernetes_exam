@@ -7,9 +7,9 @@ import os
 server = FastAPI(title='User API')
 
 # creating a connection to the database
-mysql_url = 'mysql'# to complete
+mysql_url = 'my-database-api-service'
 mysql_user = 'root'
-mysql_password = os.environ.get('DB_PASSWORD', '') # to complete
+mysql_password = os.environ.get('DB_PASSWORD', '')
 database_name = 'Main'
 
 # recreating the URL connection
