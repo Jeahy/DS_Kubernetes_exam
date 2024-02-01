@@ -1,0 +1,10 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install python3-pip -y && pip3 install requests
+
+ADD code_test3.py /test3/
+
+WORKDIR /test3/
+
+CMD python3 code_test3.py
+

@@ -1,0 +1,62 @@
+version: '3.9'
+services:
+  api:
+    image: datascientest/fastapi:1.0.0
+    container_name: api_container
+    networks: 
+      - network_test
+    ports: 
+      - "8000:8000"
+  container_test1:
+    image: image_test1
+    container_name: container_test1
+    build:
+      context: .
+      dockerfile: Dockerfile_test1
+    networks: 
+      - network_test
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=8000
+      - LOG=1
+    depends_on:
+      - api
+    volumes:
+      - testvolume:/logs
+  container_test2:
+    image: image_test2
+    container_name: container_test2
+    build:
+      context: .
+      dockerfile: Dockerfile_test2
+    networks: 
+      - network_test
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=8000
+      - LOG=1
+    depends_on:
+      - container_test1
+    volumes:
+      - testvolume:/logs
+  container_test3:
+    image: image_test3
+    container_name: container_test3
+    build:
+      context: .
+      dockerfile: Dockerfile_test3
+    networks: 
+      - network_test
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=8000
+      - LOG=1
+    depends_on:
+      - container_test2
+    volumes:
+      - testvolume:/logs
+networks:
+  network_test:
+volumes:
+  testvolume: {}
+
